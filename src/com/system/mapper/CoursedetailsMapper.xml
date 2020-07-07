@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.system.mapper.CoursedetailsMapper" >
+  <resultMap id="BaseResultMap" type="com.system.po.Coursedetails" >
+    <id column="courseID" property="courseid" jdbcType="INTEGER" />
+    <result column="teacher" property="teacher" jdbcType="VARCHAR" />
+    <result column="stepid" property="stepid" jdbcType="VARCHAR" />
+    <result column="file1" property="file1" jdbcType="VARCHAR" />
+    <result column="file2" property="file2" jdbcType="VARCHAR" />
+    <result column="file3" property="file3" jdbcType="VARCHAR" />
+    <result column="mark" property="mark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    courseID, teacher, stepid, file1, file2, file3, mark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.system.po.CoursedetailsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from coursedetails
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from coursedetails
+    where courseID = #{courseid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from coursedetails
+    where courseID = #{courseid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.system.po.CoursedetailsExample" >
+    delete from coursedetails
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.system.po.Coursedetails" >
+    insert into coursedetails (courseID, teacher, stepid, 
+      file1, file2, file3, 
+      mark)
+    values (#{courseid,jdbcType=INTEGER}, #{teacher,jdbcType=VARCHAR}, #{stepid,jdbcType=VARCHAR}, 
+      #{file1,jdbcType=VARCHAR}, #{file2,jdbcType=VARCHAR}, #{file3,jdbcType=VARCHAR}, 
+      #{mark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.system.po.Coursedetails" >
+    insert into coursedetails
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="courseid != null" >
+        courseID,
+      </if>
+      <if test="teacher != null" >
+        teacher,
+      </if>
+      <if test="stepid != null" >
+        stepid,
+      </if>
+      <if test="file1 != null" >
+        file1,
+      </if>
+      <if test="file2 != null" >
+        file2,
+      </if>
+      <if test="file3 != null" >
+        file3,
+      </if>
+      <if test="mark != null" >
+        mark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="courseid != null" >
+        #{courseid,jdbcType=INTEGER},
+      </if>
+      <if test="teacher != null" >
+        #{teacher,jdbcType=VARCHAR},
+      </if>
+      <if test="stepid != null" >
+        #{stepid,jdbcType=VARCHAR},
+      </if>
+      <if test="file1 != null" >
+        #{file1,jdbcType=VARCHAR},
+      </if>
+      <if test="file2 != null" >
+        #{file2,jdbcType=VARCHAR},
+      </if>
+      <if test="file3 != null" >
+        #{file3,jdbcType=VARCHAR},
+      </if>
+      <if test="mark != null" >
+        #{mark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.system.po.CoursedetailsExample" resultType="java.lang.Integer" >
+    select count(*) from coursedetails
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update coursedetails
+    <set >
+      <if test="record.courseid != null" >
+        courseID = #{record.courseid,jdbcType=INTEGER},
+      </if>
+      <if test="record.teacher != null" >
+        teacher = #{record.teacher,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stepid != null" >
+        stepid = #{record.stepid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.file1 != null" >
+        file1 = #{record.file1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.file2 != null" >
+        file2 = #{record.file2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.file3 != null" >
+        file3 = #{record.file3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark != null" >
+        mark = #{record.mark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update coursedetails
+    set courseID = #{record.courseid,jdbcType=INTEGER},
+      teacher = #{record.teacher,jdbcType=VARCHAR},
+      stepid = #{record.stepid,jdbcType=VARCHAR},
+      file1 = #{record.file1,jdbcType=VARCHAR},
+      file2 = #{record.file2,jdbcType=VARCHAR},
+      file3 = #{record.file3,jdbcType=VARCHAR},
+      mark = #{record.mark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.system.po.Coursedetails" >
+    update coursedetails
+    <set >
+      <if test="teacher != null" >
+        teacher = #{teacher,jdbcType=VARCHAR},
+      </if>
+      <if test="stepid != null" >
+        stepid = #{stepid,jdbcType=VARCHAR},
+      </if>
+      <if test="file1 != null" >
+        file1 = #{file1,jdbcType=VARCHAR},
+      </if>
+      <if test="file2 != null" >
+        file2 = #{file2,jdbcType=VARCHAR},
+      </if>
+      <if test="file3 != null" >
+        file3 = #{file3,jdbcType=VARCHAR},
+      </if>
+      <if test="mark != null" >
+        mark = #{mark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where courseID = #{courseid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.system.po.Coursedetails" >
+    update coursedetails
+    set teacher = #{teacher,jdbcType=VARCHAR},
+      stepid = #{stepid,jdbcType=VARCHAR},
+      file1 = #{file1,jdbcType=VARCHAR},
+      file2 = #{file2,jdbcType=VARCHAR},
+      file3 = #{file3,jdbcType=VARCHAR},
+      mark = #{mark,jdbcType=VARCHAR}
+    where courseID = #{courseid,jdbcType=INTEGER}
+  </update>
+</mapper>
